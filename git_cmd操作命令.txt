@@ -1,0 +1,20 @@
+
+
+mkdir android-pro
+
+//初始化当前目录
+git init
+
+//查看当前电脑配置
+git config --global --list
+//给Git配置全局的email账号
+git config --global user.name "kongkuan007"
+
+//给Git配置全局的email账号
+git config --global user.email "kongkuan007@126.com"
+
+//清屏
+cls
+
+//查看当前git目录状态
+git status
