@@ -18,3 +18,9 @@ cls
 
 //查看当前git目录状态
 git status
+
+//将工作区文件提交到暂存区
+git add git_cmd操作命令.txt
+
+//将暂存区文件提交到Git仓库
+git add git_cmd操作命令.txt
