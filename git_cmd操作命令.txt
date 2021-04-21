@@ -21,6 +21,8 @@ git status
 
 //将工作区文件提交到暂存区
 git add git_cmd操作命令.txt
+//当前路径下所有文件提交到暂存区
+git add .
 
 //将暂存区文件提交到Git仓库
 git add git_cmd操作命令.txt
