@@ -39,3 +39,6 @@ ssh -T git@github.com
 
 //将本地仓库代码推送到远程仓库。
 git push -u origin master
+
+//删除文件 在commit和push
+git rm kuange.TXT
