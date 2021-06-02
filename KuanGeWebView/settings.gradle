@@ -1,6 +1,7 @@
+include ':network'
 include ':usercenter'
 include ':base'
 include ':common'
 include ':webview'
 include ':app'
-rootProject.name = "KuanGeWebView"
+rootProject.name = "KuanGeApp"

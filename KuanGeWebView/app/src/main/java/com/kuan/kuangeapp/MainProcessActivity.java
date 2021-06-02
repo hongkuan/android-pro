@@ -1,8 +1,8 @@
-package com.kuan.kuangewebview;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.kuan.kuangeapp;
 
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainProcessActivity extends AppCompatActivity {
 

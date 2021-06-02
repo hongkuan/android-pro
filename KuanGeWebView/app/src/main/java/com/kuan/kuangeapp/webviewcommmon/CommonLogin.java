@@ -1,4 +1,4 @@
-package com.kuan.kuangewebview.webviewcommmon;
+package com.kuan.kuangeapp.webviewcommmon;
 
 import android.os.RemoteException;
 import android.util.Log;

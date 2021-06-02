@@ -1,4 +1,4 @@
-package com.kuan.kuangewebview;
+package com.kuan.kuangeapp;
 
 import com.kingja.loadsir.core.LoadSir;
 import com.kuan.base.BaseApplication;
@@ -7,6 +7,8 @@ import com.kuan.base.loadsir.EmptyCallback;
 import com.kuan.base.loadsir.ErrorCallback;
 import com.kuan.base.loadsir.LoadingCallback;
 import com.kuan.base.loadsir.TimeoutCallback;
+import com.kuan.network.INetworkConfigInfo;
+import com.kuan.network.NetworkApi;
 
 /**
  * Created by hongkuan on 2021-05-10 0010.
@@ -17,6 +19,23 @@ public class KuanGeApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         initLoadSir();
+
+        NetworkApi.init(new INetworkConfigInfo() {
+            @Override
+            public String getAPPVersionName() {
+                return BuildConfig.VERSION_NAME;
+            }
+
+            @Override
+            public String getAPPVersionCode() {
+                return Integer.toString(BuildConfig.VERSION_CODE);
+            }
+
+            @Override
+            public boolean isDebug() {
+                return BuildConfig.DEBUG;
+            }
+        });
 
     }
 

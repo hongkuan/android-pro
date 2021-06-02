@@ -1,12 +1,11 @@
-package com.kuan.kuangewebview.webviewcommmon;
+package com.kuan.kuangeapp.webviewcommmon;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
 import com.google.auto.service.AutoService;
-import com.google.gson.Gson;
-import com.kuan.kuangewebview.KuanGeApplication;
+import com.kuan.kuangeapp.KuanGeApplication;
 import com.kuan.webview.ICallbackMainProcessToWebViewProcessInterface;
 import com.kuan.webview.common.ICommand;
 
