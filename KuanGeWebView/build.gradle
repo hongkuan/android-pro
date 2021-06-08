@@ -48,5 +48,6 @@ ext {
     targetSdkVersion = 29
     androidxAppcompatVersion = "1.2.0"
     androidxConstraintlayoutVersion = "2.0.4"
+    androidXVersion = '1.0.0'
     googleAutoServiceDependency = 'com.google.auto.service:auto-service:1.0-rc7'
 }

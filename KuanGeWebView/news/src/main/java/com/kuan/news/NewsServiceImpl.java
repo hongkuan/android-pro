@@ -2,10 +2,15 @@ package com.kuan.news;
 
 import com.google.auto.service.AutoService;
 import com.kuan.common.autoservice.INewsService;
+import com.kuan.news.homepage.headline.HeadlineNewsFragment;
 
-/**
- * Created by hongkuan on 2021-06-08 0008.
- */
+import androidx.fragment.app.Fragment;
+
 @AutoService(INewsService.class)
-public class NewsServiceImpl implements INewsService {
+public class NewsServiceImpl implements INewsService{
+
+    @Override
+    public Fragment getHomeFragment() {
+        return HeadlineNewsFragment.newInstance();
+    }
 }

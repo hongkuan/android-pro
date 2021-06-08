@@ -20,6 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.kuan.base.autoservice.KuanGeServiceLoader;
+import com.kuan.common.autoservice.INewsService;
 import com.kuan.kuangeapp.databinding.ActivityMainBinding;
 import com.kuan.kuangeapp.fragment.OtherFragment;
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment(){
-        mHomeFragment = OtherFragment.newInstance(getString(R.string.menu_home));
+        mHomeFragment = KuanGeServiceLoader.load(INewsService.class).getHomeFragment();
         mCategoriesFragment = OtherFragment.newInstance(getString(R.string.menu_categories));
         mServicesFragment = OtherFragment.newInstance(getString(R.string.menu_services));
         mAccountFragment = OtherFragment.newInstance(getString(R.string.menu_account));

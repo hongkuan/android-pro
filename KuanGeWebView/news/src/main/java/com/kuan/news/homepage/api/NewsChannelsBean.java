@@ -1,4 +1,4 @@
-package com.kuan.news.api;
+package com.kuan.news.homepage.api;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

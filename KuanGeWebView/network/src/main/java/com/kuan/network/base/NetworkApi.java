@@ -49,6 +49,9 @@ public abstract class NetworkApi {
         return retrofit;
     }
 
+    public <T> T getService(Class<T> service) {
+        return getRetrofit(service).create(service);
+    }
     private OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
         if (null != getInterceptor()) {
