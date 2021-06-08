@@ -1,4 +1,6 @@
-package com.kuan.kuangeapp;
+package com.kuan.kuangeapp.application;
+
+import androidx.multidex.MultiDex;
 
 import com.kingja.loadsir.core.LoadSir;
 import com.kuan.base.BaseApplication;
@@ -7,8 +9,9 @@ import com.kuan.base.loadsir.EmptyCallback;
 import com.kuan.base.loadsir.ErrorCallback;
 import com.kuan.base.loadsir.LoadingCallback;
 import com.kuan.base.loadsir.TimeoutCallback;
-import com.kuan.network.INetworkConfigInfo;
-import com.kuan.network.NetworkApi;
+import com.kuan.kuangeapp.BuildConfig;
+import com.kuan.network.base.INetworkConfigInfo;
+import com.kuan.network.TecentNetworkApi;
 
 /**
  * Created by hongkuan on 2021-05-10 0010.
@@ -18,25 +21,9 @@ public class KuanGeApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
         initLoadSir();
-
-        NetworkApi.init(new INetworkConfigInfo() {
-            @Override
-            public String getAPPVersionName() {
-                return BuildConfig.VERSION_NAME;
-            }
-
-            @Override
-            public String getAPPVersionCode() {
-                return Integer.toString(BuildConfig.VERSION_CODE);
-            }
-
-            @Override
-            public boolean isDebug() {
-                return BuildConfig.DEBUG;
-            }
-        });
-
+        initNetworkConfigInfo();
     }
 
     private void initLoadSir() {
@@ -48,5 +35,24 @@ public class KuanGeApplication extends BaseApplication {
                 .addCallback(new CustomCallback())
                 .setDefaultCallback(LoadingCallback.class)
                 .commit();
+    }
+
+    private void initNetworkConfigInfo(){
+        TecentNetworkApi.init(new INetworkConfigInfo() {
+            @Override
+            public String getAPPVersionName() {
+                return BuildConfig.VERSION_NAME;
+            }
+
+            @Override
+            public String getAPPVersionCode() {
+                return String.valueOf(BuildConfig.VERSION_CODE);
+            }
+
+            @Override
+            public boolean isDebug() {
+                return BuildConfig.DEBUG;
+            }
+        });
     }
 }

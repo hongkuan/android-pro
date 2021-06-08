@@ -1,11 +1,12 @@
-package com.kuan.network.beans;
+package com.kuan.news.api;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.kuan.network.beans.TecentBaseResponse;
 
 import java.util.List;
 
-public class NewsChannelsBean extends TecentBaseResponse{
+public class NewsChannelsBean extends TecentBaseResponse {
     @SerializedName("showapi_res_body")
     @Expose
     public ShowapiResBody showapiResBody;

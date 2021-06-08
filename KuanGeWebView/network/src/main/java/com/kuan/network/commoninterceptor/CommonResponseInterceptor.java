@@ -2,13 +2,9 @@ package com.kuan.network.commoninterceptor;
 
 import android.util.Log;
 
-import com.kuan.network.INetworkConfigInfo;
-import com.kuan.network.utils.TecentUtil;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class CommonResponseInterceptor implements Interceptor {

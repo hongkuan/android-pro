@@ -1,4 +1,4 @@
-package com.kuan.network;
+package com.kuan.network.base;
 
 public interface INetworkConfigInfo {
     String getAPPVersionName();

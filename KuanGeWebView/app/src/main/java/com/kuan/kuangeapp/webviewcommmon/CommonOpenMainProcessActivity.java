@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.google.auto.service.AutoService;
-import com.kuan.kuangeapp.KuanGeApplication;
+import com.kuan.kuangeapp.application.KuanGeApplication;
 import com.kuan.webview.ICallbackMainProcessToWebViewProcessInterface;
 import com.kuan.webview.common.ICommand;
 

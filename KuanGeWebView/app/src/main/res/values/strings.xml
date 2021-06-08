@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">KuanGeWebView</string>
+    <string name="menu_home">首页</string>
+    <string name="menu_categories">搜索</string>
+    <string name="menu_services">服务</string>
+    <string name="menu_account">我的</string>
+    <string name="share">分享</string>
 </resources>
