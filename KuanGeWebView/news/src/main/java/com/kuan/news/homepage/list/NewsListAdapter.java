@@ -1,21 +1,21 @@
 package com.kuan.news.homepage.list;
 
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.kuan.news.homepage.base.BaseCustomViewModel;
-import com.kuan.news.homepage.base.ICustomView;
-import com.kuan.news.homepage.picturetitleview.PictureTitleView;
-import com.kuan.news.homepage.picturetitleview.PictureTitleViewModel;
-import com.kuan.news.homepage.titleview.TitleView;
-import com.kuan.news.homepage.titleview.TitleViewModel;
+import com.kuan.base.view.custom.BaseCustomViewModel;
+import com.kuan.base.view.custom.ICustomView;
+import com.kuan.base.view.recycler.BaseViewHolder;
+import com.kuan.common.views.picturetitleview.PictureTitleView;
+import com.kuan.common.views.picturetitleview.PictureTitleViewModel;
+import com.kuan.common.views.titleview.TitleView;
+import com.kuan.common.views.titleview.TitleViewModel;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
+public class NewsListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<BaseCustomViewModel> mData;
     private final int VIEW_TYPE_PICTURE_TITLE = 1;
@@ -28,12 +28,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ICustomView view = null;
         if (viewType == VIEW_TYPE_PICTURE_TITLE) view = new PictureTitleView(parent.getContext());
         if (viewType == VIEW_TYPE_TITLE) view = new TitleView(parent.getContext());
         if (null == view)return null;
-        return new ViewHolder(view);
+        return new BaseViewHolder(view);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         holder.bind(mData.get(position));
     }
 
@@ -55,17 +55,4 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHo
         return 0;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-
-        private final ICustomView view;
-
-        public ViewHolder(@NonNull ICustomView itemView) {
-            super((View) itemView);
-            this.view = itemView;
-        }
-
-        public void bind(BaseCustomViewModel model){
-            this.view.setData(model);
-        }
-    }
 }

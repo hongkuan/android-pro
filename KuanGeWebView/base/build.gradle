@@ -24,6 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -36,5 +40,7 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
     api 'com.google.code.gson:gson:2.8.2'
     api 'org.greenrobot:eventbus:3.2.0'
+
     api "androidx.recyclerview:recyclerview:$rootProject.androidXVersion"
+
 }

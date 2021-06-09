@@ -42,6 +42,6 @@ dependencies {
     annotationProcessor rootProject.googleAutoServiceDependency
     implementation rootProject.googleAutoServiceDependency
     implementation 'com.android.support:multidex:1.0.3'
-    //bottom menu �Ǳ���ʾ
+    //bottom menu 角标提示数量
     implementation 'q.rorbin:badgeview:1.1.3'
 }

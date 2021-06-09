@@ -46,10 +46,6 @@ public class TecentNetworkApi extends NetworkApi {
 
     }
 
-    public static <T> T createService(Class<T> service){
-        return getInstance().getRetrofit(service).create(service);
-    }
-
     @Override
     protected   <T> Function<T,T> getAppErrorHandler(){
         return new Function<T, T>() {

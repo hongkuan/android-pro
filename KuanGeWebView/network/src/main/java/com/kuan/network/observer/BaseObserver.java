@@ -10,28 +10,28 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseObserver<T> implements Observer<T> {
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        //¿ªÊ¼
+        //å¼€å§‹
     }
 
     @Override
     public void onNext(@NonNull T t) {
-        //½øĞĞÖĞ
+        //æˆåŠŸ
         onSuccess(t);
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
-        //³ö´íÁË
+        //é”™è¯¯
     }
 
     @Override
     public void onComplete() {
-        //Íê³É
+        //å®Œæˆ
     }
 
-    //³É¹¦
+    //æˆåŠŸ
     protected abstract void onSuccess(T t);
 
-    //Ê§°Ü
+    //å¤±è´¥
     protected abstract void onFail(Throwable e);
 }
