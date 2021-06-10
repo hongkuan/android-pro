@@ -1,11 +1,14 @@
 package com.kuan.news.homepage.headline;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
+import com.kuan.base.model.IBaseModeListener;
+import com.kuan.base.model.PagingResult;
 import com.kuan.network.TecentNetworkApi;
 import com.kuan.network.observer.BaseObserver;
 import com.kuan.news.R;
@@ -22,10 +25,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
-public class HeadlineNewsFragment extends Fragment {
-
+public class HeadlineNewsFragment extends Fragment implements IBaseModeListener<List<ChannelsModel.Channel>> {
+    private static final String TAG = "HeadlineNewsFragment";
     private FragmentHomeBinding mBinding;
     private HeadlineNewsFragmentAdapter mAdapter;
+    private ChannelsModel mChannelsModel;
 
     public static HeadlineNewsFragment newInstance() {
         Bundle args = new Bundle();
@@ -43,35 +47,20 @@ public class HeadlineNewsFragment extends Fragment {
         mBinding.viewPager.setAdapter(mAdapter);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager);
         mBinding.viewPager.setOffscreenPageLimit(1);
-        loadData();
+
+        mChannelsModel = new ChannelsModel();
+        mChannelsModel.register(this);
+        mChannelsModel.getCacheDataAndLoad();
         return mBinding.getRoot();
     }
 
-    private void loadData() {
-        TecentNetworkApi.getInstance().getService(INewsChannelApi.class).getNewsChannels()
-                .compose(
-                        TecentNetworkApi.getInstance()
-                                .applySchedulers(new BaseObserver<NewsChannelsBean>() {
-            @Override
-            protected void onSuccess(NewsChannelsBean newsChannelsBean) {
-                if (newsChannelsBean != null
-                        && null != newsChannelsBean.showapiResBody.channelList
-                        && newsChannelsBean.showapiResBody.channelList.size() > 0) {
-                    List<HeadlineNewsFragmentAdapter.ChannelItem> data = new ArrayList<>();
-                    for (NewsChannelsBean.ChannelList channelList : newsChannelsBean.showapiResBody.channelList) {
-                        HeadlineNewsFragmentAdapter.ChannelItem item = new HeadlineNewsFragmentAdapter.ChannelItem();
-                        item.channelId = channelList.channelId;
-                        item.channelName = channelList.name;
-                        data.add(item);
-                    }
-                    mAdapter.setData(data);
-                }
-            }
+    @Override
+    public void onLoadFinish(List<ChannelsModel.Channel> data, PagingResult... pagingResults) {
+        mAdapter.setData(data);
+    }
 
-            @Override
-            protected void onFail(Throwable e) {
-
-            }
-        }));
+    @Override
+    public void onLoadFail(String errMsg, PagingResult... pagingResults) {
+        Log.e(TAG, "onLoadFail: errMsg->"+errMsg);
     }
 }

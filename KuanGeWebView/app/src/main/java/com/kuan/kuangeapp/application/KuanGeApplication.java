@@ -9,6 +9,7 @@ import com.kuan.base.loadsir.EmptyCallback;
 import com.kuan.base.loadsir.ErrorCallback;
 import com.kuan.base.loadsir.LoadingCallback;
 import com.kuan.base.loadsir.TimeoutCallback;
+import com.kuan.base.preference.PreferencesUtil;
 import com.kuan.kuangeapp.BuildConfig;
 import com.kuan.network.base.INetworkConfigInfo;
 import com.kuan.network.TecentNetworkApi;
@@ -21,6 +22,7 @@ public class KuanGeApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        PreferencesUtil.init(this);
         MultiDex.install(this);
         initLoadSir();
         initNetworkConfigInfo();

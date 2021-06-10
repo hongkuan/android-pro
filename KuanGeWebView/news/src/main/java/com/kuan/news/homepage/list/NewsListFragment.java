@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kuan.base.model.IBaseModeListener;
+import com.kuan.base.model.PagingResult;
 import com.kuan.network.TecentNetworkApi;
 import com.kuan.network.observer.BaseObserver;
 import com.kuan.news.R;
@@ -27,18 +29,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class NewsListFragment extends Fragment {
+public class NewsListFragment extends Fragment implements IBaseModeListener<List<BaseCustomViewModel>> {
     private static final String TAG = "NewsListFragment";
     private static final String ARGS_KEY_CHANNEL_ID = "args_key_channel_id";
     private static final String ARGS_KEY_CHANNEL_NAME = "args_key_channel_name";
     private FragmentNewsBinding mBinding;
     private String mChannelId;
     private String mChannelName;
-    private int mCurrPageNum = 1;
-    private boolean isRefresh = false;
 
     private List<BaseCustomViewModel> mListData = new ArrayList<>();
     private NewsListAdapter mAdapter;
+    private NewsListModel mNewsListModel = null;
 
     public static NewsListFragment newInstance(String channelId, String channelName) {
         Bundle args = new Bundle();
@@ -53,6 +54,8 @@ public class NewsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, null, false);
+        mNewsListModel = new NewsListModel(mChannelId, mChannelName);
+        mNewsListModel.register(this);
         initData();
         mAdapter = new NewsListAdapter();
         mBinding.listview.setHasFixedSize(true);
@@ -61,20 +64,16 @@ public class NewsListFragment extends Fragment {
         mBinding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                isRefresh = true;
-                mCurrPageNum = 1;
-                load();
+                mNewsListModel.refresh();
             }
         });
         mBinding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                isRefresh = false;
-                mCurrPageNum++;
-                load();
+                mNewsListModel.loadNextPage();
             }
         });
-        load();
+        mNewsListModel.getCacheDataAndLoad();
         return mBinding.getRoot();
     }
 
@@ -84,42 +83,22 @@ public class NewsListFragment extends Fragment {
         mChannelName = args.getString(ARGS_KEY_CHANNEL_NAME);
     }
 
-    private void load(){
-        TecentNetworkApi.getInstance().getService(INewsChannelApi.class).getNewsList(mChannelId, mChannelName, Integer.toString(mCurrPageNum))
-                .compose(TecentNetworkApi.getInstance().applySchedulers(new BaseObserver<NewsListBean>() {
-                    @Override
-                    protected void onSuccess(NewsListBean newsListBean) {
-                        mBinding.refreshLayout.finishRefresh();
-                        mBinding.refreshLayout.finishLoadMore();
-                        if (isRefresh) mListData.clear();
-                        if (null!= newsListBean && null != newsListBean.showapiResBody && null != newsListBean.showapiResBody.pagebean){
-                            NewsListBean.Pagebean pageBean = newsListBean.showapiResBody.pagebean;
+    @Override
+    public void onLoadFinish(List<BaseCustomViewModel> data, PagingResult... pagingResults) {
+        mBinding.refreshLayout.finishRefresh();
+        mBinding.refreshLayout.finishLoadMore();
+        if (pagingResults.length > 0 && pagingResults[0].isFirstPage){
+            mListData.clear();
+        }
 
-                            if (pageBean.contentlist.size()>0){
-                                mCurrPageNum = pageBean.currentPage;
-                                for (NewsListBean.Contentlist contentlist : pageBean.contentlist) {
-                                    if(null != contentlist.imageurls && contentlist.imageurls.size()>0){
-                                        PictureTitleViewModel model = new PictureTitleViewModel();
-                                        model.avatarUrl = contentlist.imageurls.get(0).url;
-                                        model.title = contentlist.title;
-                                        model.link = contentlist.link;
-                                        mListData.add(model);
-                                    }else {
-                                        TitleViewModel model = new TitleViewModel();
-                                        model.title = contentlist.title;
-                                        model.link = contentlist.link;
-                                        mListData.add(model);
-                                    }
-                                }
-                                mAdapter.setData(mListData);
-                            }
-                        }
-                    }
+        mListData.addAll(data);
+        mAdapter.setData(mListData);
+    }
 
-                    @Override
-                    protected void onFail(Throwable e) {
+    @Override
+    public void onLoadFail(String errMsg, PagingResult... pagingResults) {
+        mBinding.refreshLayout.finishRefresh();
+        mBinding.refreshLayout.finishLoadMore();
 
-                    }
-                }));
     }
 }

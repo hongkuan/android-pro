@@ -2,6 +2,8 @@ package com.kuan.news.homepage.headline;
 
 import com.kuan.news.homepage.list.NewsListFragment;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +14,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class HeadlineNewsFragmentAdapter extends FragmentPagerAdapter {
-    public static class ChannelItem{
-        public String channelId;
-        public String channelName;
-    }
 
-    private List<ChannelItem> mData = new ArrayList<>();
+    private List<ChannelsModel.Channel> mData = new ArrayList<>();
 
     public HeadlineNewsFragmentAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
-    public void setData(List<ChannelItem> data){
+    public void setData(List<ChannelsModel.Channel> data){
         mData.addAll(data);
         notifyDataSetChanged();
     }
