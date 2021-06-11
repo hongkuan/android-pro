@@ -9,6 +9,7 @@ import org.json.JSONException;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLHandshakeException;
 
@@ -106,7 +107,8 @@ public class ExceptionHandle {
                 || throwable instanceof ParseException) {
             result = new ResponseException(throwable, ERROR.PARSE_ERROR);
             result.message = "解析错误";
-        } else if (throwable instanceof ConnectException) {
+        } else if (throwable instanceof ConnectException ||
+                    throwable instanceof UnknownHostException) {
             result = new ResponseException(throwable, ERROR.NETWORK_ERROR);
             result.message = "连接失败";
         } else if (throwable instanceof SSLHandshakeException) {

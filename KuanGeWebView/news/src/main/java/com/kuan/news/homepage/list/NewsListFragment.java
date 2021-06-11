@@ -1,9 +1,11 @@
 package com.kuan.news.homepage.list;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kuan.base.model.IBaseModeListener;
 import com.kuan.base.model.PagingResult;
@@ -54,9 +56,9 @@ public class NewsListFragment extends Fragment implements IBaseModeListener<List
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, null, false);
+        initData();
         mNewsListModel = new NewsListModel(mChannelId, mChannelName);
         mNewsListModel.register(this);
-        initData();
         mAdapter = new NewsListAdapter();
         mBinding.listview.setHasFixedSize(true);
         mBinding.listview.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -97,8 +99,9 @@ public class NewsListFragment extends Fragment implements IBaseModeListener<List
 
     @Override
     public void onLoadFail(String errMsg, PagingResult... pagingResults) {
+        Log.e(TAG, "onLoadFail: errMsg->"+errMsg);
         mBinding.refreshLayout.finishRefresh();
         mBinding.refreshLayout.finishLoadMore();
-
+        Toast.makeText(getContext(), errMsg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -165,7 +165,8 @@ public abstract class MVVMBaseMode<N, O> implements MVVMDataObserver<N> {
             if (!TextUtils.isEmpty(mCachedPreferencesKey) && !isFromCache)saveDataToPreference(networkResponseBean);
         }
 
-        if (!isFromCache) isLoading = false;
+        //if (!isFromCache)
+            isLoading = false;
     }
 
 

@@ -12,8 +12,8 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:tabIndicatorColor="@android:color/white"
-            app:tabTextColor="@android:color/white"
-            app:tabSelectedTextColor="@android:color/darker_gray"/>
+            app:tabTextColor="@android:color/darker_gray"
+            app:tabSelectedTextColor="@android:color/white"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"

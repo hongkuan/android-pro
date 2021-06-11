@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.kuan.base.model.IBaseModeListener;
@@ -57,10 +58,12 @@ public class HeadlineNewsFragment extends Fragment implements IBaseModeListener<
     @Override
     public void onLoadFinish(List<ChannelsModel.Channel> data, PagingResult... pagingResults) {
         mAdapter.setData(data);
+        mBinding.tabLayout.selectTab(mBinding.tabLayout.getTabAt(mBinding.tabLayout.getSelectedTabPosition()));
     }
 
     @Override
     public void onLoadFail(String errMsg, PagingResult... pagingResults) {
         Log.e(TAG, "onLoadFail: errMsg->"+errMsg);
+        Toast.makeText(getContext(), errMsg, Toast.LENGTH_SHORT).show();
     }
 }
